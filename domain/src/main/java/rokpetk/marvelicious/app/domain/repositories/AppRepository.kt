@@ -1,4 +1,4 @@
-package rokpetk.marvelicious.app.domain.source.remote
+package rokpetk.marvelicious.app.domain.repositories
 
 interface AppRepository {
     suspend fun getHeroes()

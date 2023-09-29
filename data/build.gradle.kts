@@ -1,6 +1,10 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+    id("org.jetbrains.kotlin.plugin.serialization")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -30,12 +34,24 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
+    implementation(project(":domain"))
 
+    implementation(Dependencies.daggerHilt)
+    kapt(Dependencies.daggerHiltCompiler)
+    implementation(Dependencies.kotlinSerializer)
     implementation(Dependencies.retrofit)
     implementation(Dependencies.retrofitKotlinSerializer)
+    implementation(Dependencies.sandwich)
+
+    implementation(Dependencies.okhttp)
+    implementation(Dependencies.okhttpLoggingInterceptor)
+    testImplementation(Dependencies.okhttpMockWebServer)
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
