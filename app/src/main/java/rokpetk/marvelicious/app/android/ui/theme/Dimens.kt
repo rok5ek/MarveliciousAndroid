@@ -20,4 +20,6 @@ object Dimens {
         val p22 = 22.dp
         val p24 = 24.dp
     }
+
+    val heroImageSize = 64.dp
 }

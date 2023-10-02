@@ -3,6 +3,7 @@ package rokpetk.marvelicious.app.android.screens
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -42,6 +43,7 @@ fun HomeScreen(
             )
         ) {
             LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
                 contentPadding = PaddingValues(vertical = Dimens.Padding.p20)
             ) {
                 items(

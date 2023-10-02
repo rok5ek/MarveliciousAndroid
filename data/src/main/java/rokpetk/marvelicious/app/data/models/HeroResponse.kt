@@ -12,7 +12,7 @@ data class HeroResponse(
     @SerialName("thumbnail") private val thumbnail: HeroThumbnailResponse,
 ) : Mapper<HeroResponse, HeroModel> {
     private val image: String
-        get() = "${thumbnail.path}.${thumbnail.extension}"
+        get() = "${thumbnail.path.replace("http", "https")}.${thumbnail.extension}"
 
     override fun HeroResponse.mapTo(): HeroModel {
         return HeroModel(

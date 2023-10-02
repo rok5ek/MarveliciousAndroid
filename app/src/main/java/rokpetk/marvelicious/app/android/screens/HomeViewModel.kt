@@ -29,6 +29,10 @@ class HomeViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             when (val result = getHeroes.execute(GetHeroes.Params(""))) {
+                is ApiResponse.Success -> {
+                    _state.update { it.copy(items = result.data) }
+                }
+
                 is ApiResponse.Failure.Error -> {
                     val error: ErrorResponse? = result.deserializeErrorBody()
                     error?.let { _event.emit(HomeEvent.ShowError(message = it.code)) }
@@ -36,10 +40,6 @@ class HomeViewModel @Inject constructor(
 
                 is ApiResponse.Failure.Exception -> {
                     result.message?.let { _event.emit(HomeEvent.ShowError(message = it)) }
-                }
-
-                is ApiResponse.Success -> {
-                    _state.update { it.copy(items = result.data) }
                 }
             }
         }
