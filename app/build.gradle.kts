@@ -24,6 +24,9 @@ android {
     }
 
     buildTypes {
+        debug {
+            isDebuggable = true
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -60,8 +63,10 @@ dependencies {
     implementation(Dependencies.androidCoreKtx)
     implementation(Dependencies.daggerHilt)
     kapt(Dependencies.daggerHiltCompiler)
+    implementation(Dependencies.sandwich)
     implementation("androidx.navigation:navigation-compose:2.7.3")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
 
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.activity:activity-compose:1.7.2")

@@ -16,6 +16,7 @@ import rokpetk.marvelicious.app.data.Config
 import rokpetk.marvelicious.app.data.datasource.remote.MarvelApiService
 import rokpetk.marvelicious.app.data.interceptors.AuthInterceptor
 
+@OptIn(ExperimentalSerializationApi::class)
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
@@ -31,10 +32,9 @@ object NetworkModule {
         return httpClient.build()
     }
 
-    @OptIn(ExperimentalSerializationApi::class)
     @Provides
-    fun provideApiService(okHttpClient: OkHttpClient): MarvelApiService {
-        val json = Json {
+    fun provideJsonParser(): Json {
+        return Json {
             // json will be pretty printed
             prettyPrint = true
             // accept malformed input
@@ -44,10 +44,15 @@ object NetworkModule {
             // should nulls be encoded and be present in JSON object when decoding
             explicitNulls = false
         }
+    }
+
+    @OptIn(ExperimentalSerializationApi::class)
+    @Provides
+    fun provideApiService(okHttpClient: OkHttpClient, jsonParser: Json): MarvelApiService {
         val contentType = "application/json".toMediaType()
         val retrofit = Retrofit.Builder()
             .baseUrl(Config.baseUrl)
-            .addConverterFactory(json.asConverterFactory(contentType))
+            .addConverterFactory(jsonParser.asConverterFactory(contentType))
             .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .client(okHttpClient)
             .build()
