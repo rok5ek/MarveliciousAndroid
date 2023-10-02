@@ -23,6 +23,7 @@ object Dependencies {
     val kotlinSerializer =
         "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinSerializer}"
     val sandwich = "com.github.skydoves:sandwich:${Versions.sandwich}"
+    val sandwichSerialization = "com.github.skydoves:sandwich-serialization:${Versions.sandwich}"
 
     val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
     val okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
