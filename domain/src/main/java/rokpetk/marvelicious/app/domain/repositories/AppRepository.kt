@@ -1,8 +1,12 @@
 package rokpetk.marvelicious.app.domain.repositories
 
 import com.skydoves.sandwich.ApiResponse
+import kotlinx.coroutines.flow.Flow
 import rokpetk.marvelicious.app.domain.models.HeroModel
 
 interface AppRepository {
-    suspend fun getHeroes(): ApiResponse<List<HeroModel>>
+    suspend fun getHeroes(
+        nameStartsWith: String?,
+        limit: Int
+    ): Flow<ApiResponse<List<HeroModel>>>
 }
