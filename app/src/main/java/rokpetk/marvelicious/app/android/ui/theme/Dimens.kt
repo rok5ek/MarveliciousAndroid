@@ -22,4 +22,5 @@ object Dimens {
     }
 
     val heroImageSize = 64.dp
+    val mediaItemSize = 128.dp
 }

@@ -63,8 +63,6 @@ dependencies {
     implementation(Dependencies.androidCoreKtx)
     implementation(Dependencies.daggerHilt)
     kapt(Dependencies.daggerHiltCompiler)
-    implementation(Dependencies.sandwich)
-    implementation(Dependencies.sandwichSerialization)
     implementation("androidx.navigation:navigation-compose:2.7.3")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")

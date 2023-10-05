@@ -1,7 +1,6 @@
 package rokpetk.marvelicious.app.data.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import com.skydoves.sandwich.adapters.ApiResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,14 +45,12 @@ object NetworkModule {
         }
     }
 
-    @OptIn(ExperimentalSerializationApi::class)
     @Provides
     fun provideApiService(okHttpClient: OkHttpClient, jsonParser: Json): MarvelApiService {
         val contentType = "application/json".toMediaType()
         val retrofit = Retrofit.Builder()
             .baseUrl(Config.baseUrl)
             .addConverterFactory(jsonParser.asConverterFactory(contentType))
-            .addCallAdapterFactory(ApiResponseCallAdapterFactory.create())
             .client(okHttpClient)
             .build()
         return retrofit.create(MarvelApiService::class.java)

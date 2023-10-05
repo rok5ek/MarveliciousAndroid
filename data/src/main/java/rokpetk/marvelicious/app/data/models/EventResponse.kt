@@ -3,17 +3,18 @@ package rokpetk.marvelicious.app.data.models
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import rokpetk.marvelicious.app.data.mappers.Mapper
+import rokpetk.marvelicious.app.domain.models.EventModel
 import rokpetk.marvelicious.app.domain.models.HeroModel
 
 @Serializable
-data class HeroResponse(
+data class EventResponse(
     @SerialName("id") val id: Int,
-    @SerialName("name") val name: String,
+    @SerialName("title") val name: String,
     @SerialName("thumbnail") private val thumbnail: ThumbnailResponse,
-) : Mapper<HeroResponse, HeroModel> {
+): Mapper<EventResponse, EventModel> {
 
-    override fun HeroResponse.mapTo(): HeroModel {
-        return HeroModel(
+    override fun EventResponse.mapTo(): EventModel {
+        return EventModel(
             id = id,
             name = name,
             image = thumbnail.image

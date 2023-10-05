@@ -4,11 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class HeroesResponse(
-    @SerialName("data") val data: HeroesDataResponse,
+data class HeroWrapperResponse(
+    @SerialName("data") val data: HeroDataResponse,
 )
 
 @Serializable
-data class HeroesDataResponse(
+data class HeroDataResponse(
     @SerialName("results") val results: List<HeroResponse>,
 )

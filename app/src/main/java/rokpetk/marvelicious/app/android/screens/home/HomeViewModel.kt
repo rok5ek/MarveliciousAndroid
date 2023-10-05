@@ -3,11 +3,7 @@ package rokpetk.marvelicious.app.android.screens.home
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.skydoves.sandwich.ApiResponse
-import com.skydoves.sandwich.serialization.deserializeErrorBody
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,20 +13,19 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import rokpetk.marvelicious.app.data.models.ErrorResponse
 import rokpetk.marvelicious.app.domain.models.HeroModel
+import rokpetk.marvelicious.app.domain.reponses.ApiResponse
+import rokpetk.marvelicious.app.domain.reponses.ErrorResponse
 import rokpetk.marvelicious.app.domain.usecases.GetHeroes
 import javax.inject.Inject
 
 @OptIn(ExperimentalCoroutinesApi::class, FlowPreview::class)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getHeroes: GetHeroes,
-    private val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
+    private val getHeroes: GetHeroes
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
@@ -75,19 +70,18 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private suspend fun onGetHeroResponse(response: ApiResponse<List<HeroModel>>) {
+    private suspend fun onGetHeroResponse(response: ApiResponse<List<HeroModel>, ErrorResponse>) {
         when (response) {
             is ApiResponse.Success -> {
-                _state.update { it.copy(items = response.data) }
+                _state.update { it.copy(items = response.result) }
             }
 
-            is ApiResponse.Failure.Error -> {
-                val error: ErrorResponse? = response.deserializeErrorBody()
-                error?.let { _event.emit(HomeEvent.ShowError(message = it.code)) }
+            is ApiResponse.Error -> {
+                response.error?.let { _event.emit(HomeEvent.ShowError(message = it.message)) }
             }
 
-            is ApiResponse.Failure.Exception -> {
-                response.message?.let { _event.emit(HomeEvent.ShowError(message = it)) }
+            is ApiResponse.Exception -> {
+                response.error.message?.let { _event.emit(HomeEvent.ShowError(message = it)) }
             }
         }
     }

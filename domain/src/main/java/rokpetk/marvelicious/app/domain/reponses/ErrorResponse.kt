@@ -1,4 +1,4 @@
-package rokpetk.marvelicious.app.data.models
+package rokpetk.marvelicious.app.domain.reponses
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

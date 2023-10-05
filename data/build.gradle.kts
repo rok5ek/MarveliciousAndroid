@@ -47,8 +47,6 @@ dependencies {
     implementation(Dependencies.kotlinSerializer)
     implementation(Dependencies.retrofit)
     implementation(Dependencies.retrofitKotlinSerializer)
-    implementation(Dependencies.sandwich)
-    implementation(Dependencies.sandwichSerialization)
 
     implementation(Dependencies.okhttp)
     implementation(Dependencies.okhttpLoggingInterceptor)

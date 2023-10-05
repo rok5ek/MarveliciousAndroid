@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MarveliciousAndroid</string>
     <string name="home_search_label">Search</string>
+    <string name="hero_details_comics_section">Comics</string>
+    <string name="hero_details_events_section">Events</string>
+    <string name="hero_details_series_section">Series</string>
 </resources>
