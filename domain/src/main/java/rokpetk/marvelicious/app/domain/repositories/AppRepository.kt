@@ -5,6 +5,10 @@ import kotlinx.coroutines.flow.Flow
 import rokpetk.marvelicious.app.domain.models.HeroModel
 
 interface AppRepository {
+    suspend fun getHero(
+        heroId: String,
+    ): Flow<ApiResponse<HeroModel>>
+
     suspend fun getHeroes(
         nameStartsWith: String?,
         limit: Int

@@ -2,6 +2,7 @@ package rokpetk.marvelicious.app.android.screens.home.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -26,6 +27,7 @@ fun HomeItemView(
     Column(
         modifier = Modifier
             .padding(Dimens.Padding.p12)
+            .fillMaxWidth()
             .clickable { onClick() }
     ) {
         AsyncImage(

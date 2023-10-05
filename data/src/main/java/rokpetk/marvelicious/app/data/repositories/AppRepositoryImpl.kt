@@ -16,6 +16,17 @@ class AppRepositoryImpl @Inject constructor(
     private val apiService: MarvelApiService,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : AppRepository {
+    override suspend fun getHero(heroId: String): Flow<ApiResponse<HeroModel>> {
+        val response = apiService.getHero(
+            heroId = heroId
+        ).mapSuccess {
+            this.data.results.first().run { mapTo() }
+        }
+
+        // flowOn works upstream
+        return flow { emit(response) }.flowOn(context = dispatcher)
+    }
+
     override suspend fun getHeroes(
         nameStartsWith: String?,
         limit: Int
