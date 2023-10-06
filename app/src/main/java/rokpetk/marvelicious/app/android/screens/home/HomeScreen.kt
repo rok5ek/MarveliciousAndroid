@@ -62,10 +62,10 @@ fun HomeScreen(
                         .fillMaxWidth()
                         .padding(all = Dimens.Padding.p20),
                     value = state.searchQuery,
+                    enabled = !state.isLoading,
                     onValueChange = { viewModel.onSearchQuery(it) },
                     label = { Text(stringResource(id = R.string.home_search_label)) }
                 )
-
                 LazyVerticalGrid(
                     modifier = Modifier.fillMaxWidth(),
                     contentPadding = PaddingValues(Dimens.Padding.p20),
