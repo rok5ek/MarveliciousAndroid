@@ -1,14 +1,14 @@
 package rokpetk.marvelicious.app.domain.reponses
 
-sealed interface ApiResponse<out T : Any, out E : Any?> {
+sealed interface ApiResponse<out T : Any> {
 
-    data class Success<T : Any, E : Any>(val result: T) : ApiResponse<T, E>
+    data class Success<T : Any>(val result: T) : ApiResponse<T>
 
-    data class Error<T : Any, E : Any?>(
+    data class Error<T : Any>(
         val code: Int,
         val message: String?,
-        val error: E?
-    ) : ApiResponse<T, E>
+        val error: String?
+    ) : ApiResponse<T>
 
-    data class Exception(val error: Throwable) : ApiResponse<Nothing, Nothing>
+    data class Exception(val error: Throwable) : ApiResponse<Nothing>
 }

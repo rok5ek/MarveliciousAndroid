@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class GetHeroSeries @Inject constructor(
     private val repository: AppRepository
-) : BaseUseCase<Flow<ApiResponse<List<SeriesModel>, ErrorResponse>>, GetHeroSeries.Params>() {
+) : BaseUseCase<Flow<ApiResponse<List<SeriesModel>>>, GetHeroSeries.Params>() {
 
-    override suspend fun execute(params: Params): Flow<ApiResponse<List<SeriesModel>, ErrorResponse>> {
+    override suspend fun execute(params: Params): Flow<ApiResponse<List<SeriesModel>>> {
         return repository.getHeroSeries(
             heroId = params.heroId,
         )

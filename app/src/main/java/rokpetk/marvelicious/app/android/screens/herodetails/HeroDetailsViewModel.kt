@@ -52,8 +52,8 @@ class HeroDetailsViewModel @Inject constructor(
 
                             is ApiResponse.Error -> {
                                 _state.update { it.copy(isLoading = false) }
-                                response.error?.let {
-                                    _event.emit(HeroDetailsEvent.ShowError(message = it.message))
+                                response.message?.let {
+                                    _event.emit(HeroDetailsEvent.ShowError(message = it))
                                 }
                             }
 

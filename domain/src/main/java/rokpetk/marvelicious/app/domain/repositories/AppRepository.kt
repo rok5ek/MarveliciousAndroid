@@ -6,27 +6,26 @@ import rokpetk.marvelicious.app.domain.models.EventModel
 import rokpetk.marvelicious.app.domain.models.HeroModel
 import rokpetk.marvelicious.app.domain.models.SeriesModel
 import rokpetk.marvelicious.app.domain.reponses.ApiResponse
-import rokpetk.marvelicious.app.domain.reponses.ErrorResponse
 
 interface AppRepository {
     suspend fun getHero(
         heroId: String,
-    ): Flow<ApiResponse<HeroModel, ErrorResponse>>
+    ): Flow<ApiResponse<HeroModel>>
 
     suspend fun getHeroes(
         nameStartsWith: String?,
         limit: Int
-    ): Flow<ApiResponse<List<HeroModel>, ErrorResponse>>
+    ): Flow<ApiResponse<List<HeroModel>>>
 
     suspend fun getHeroComics(
         heroId: String,
-    ): Flow<ApiResponse<List<ComicModel>, ErrorResponse>>
+    ): Flow<ApiResponse<List<ComicModel>>>
 
     suspend fun getHeroSeries(
         heroId: String,
-    ): Flow<ApiResponse<List<SeriesModel>, ErrorResponse>>
+    ): Flow<ApiResponse<List<SeriesModel>>>
 
     suspend fun getHeroEvents(
         heroId: String,
-    ): Flow<ApiResponse<List<EventModel>, ErrorResponse>>
+    ): Flow<ApiResponse<List<EventModel>>>
 }

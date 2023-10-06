@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class GetHeroComics @Inject constructor(
     private val repository: AppRepository
-) : BaseUseCase<Flow<ApiResponse<List<ComicModel>, ErrorResponse>>, GetHeroComics.Params>() {
+) : BaseUseCase<Flow<ApiResponse<List<ComicModel>>>, GetHeroComics.Params>() {
 
-    override suspend fun execute(params: Params): Flow<ApiResponse<List<ComicModel>, ErrorResponse>> {
+    override suspend fun execute(params: Params): Flow<ApiResponse<List<ComicModel>>> {
         return repository.getHeroComics(
             heroId = params.heroId,
         )

@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import rokpetk.marvelicious.app.domain.models.HeroModel
 import rokpetk.marvelicious.app.domain.reponses.ApiResponse
-import rokpetk.marvelicious.app.domain.reponses.ErrorResponse
 import rokpetk.marvelicious.app.domain.usecases.GetHeroes
 import javax.inject.Inject
 
@@ -71,7 +70,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private suspend fun onGetHeroResponse(response: ApiResponse<List<HeroModel>, ErrorResponse>) {
+    private suspend fun onGetHeroResponse(response: ApiResponse<List<HeroModel>>) {
         when (response) {
             is ApiResponse.Success -> {
                 _state.update { it.copy(isLoading = false, items = response.result) }
@@ -79,7 +78,7 @@ class HomeViewModel @Inject constructor(
 
             is ApiResponse.Error -> {
                 _state.update { it.copy(isLoading = false) }
-                response.error?.let { _event.emit(HomeEvent.ShowError(message = it.message)) }
+                response.message?.let { _event.emit(HomeEvent.ShowError(message = it)) }
             }
 
             is ApiResponse.Exception -> {

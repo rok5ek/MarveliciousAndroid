@@ -13,9 +13,9 @@ class GetHeroDetails @Inject constructor(
     private val getHeroComics: GetHeroComics,
     private val getHeroEvents: GetHeroEvents,
     private val getHeroSeries: GetHeroSeries,
-) : BaseUseCase<Flow<ApiResponse<HeroDetailsModel, ErrorResponse>>, GetHeroDetails.Params>() {
+) : BaseUseCase<Flow<ApiResponse<HeroDetailsModel>>, GetHeroDetails.Params>() {
 
-    override suspend fun execute(params: Params): Flow<ApiResponse<HeroDetailsModel, ErrorResponse>> {
+    override suspend fun execute(params: Params): Flow<ApiResponse<HeroDetailsModel>> {
         val heroFlow = getHero.execute(params = GetHero.Params(params.id))
         val heroComicsFlow = getHeroComics.execute(params = GetHeroComics.Params(params.id))
         val heroEventsFlow = getHeroEvents.execute(params = GetHeroEvents.Params(params.id))

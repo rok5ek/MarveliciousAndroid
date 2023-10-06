@@ -2,31 +2,31 @@ package rokpetk.marvelicious.app.domain.extensions
 
 import rokpetk.marvelicious.app.domain.reponses.ApiResponse
 
-fun <T1 : Any, T2 : Any, T3 : Any, T4 : Any, E : Any> result4(
-    result1: ApiResponse<T1, E>,
-    result2: ApiResponse<T2, E>,
-    result3: ApiResponse<T3, E>,
-    result4: ApiResponse<T4, E>,
-): ApiResponse<Result4<T1, T2, T3, T4>, E>? {
-    if (result1 is ApiResponse.Error<T1, E>) {
+fun <T1 : Any, T2 : Any, T3 : Any, T4 : Any> result4(
+    result1: ApiResponse<T1>,
+    result2: ApiResponse<T2>,
+    result3: ApiResponse<T3>,
+    result4: ApiResponse<T4>,
+): ApiResponse<Result4<T1, T2, T3, T4>>? {
+    if (result1 is ApiResponse.Error<T1>) {
         return ApiResponse.Error(
             code = result1.code,
             message = result1.message,
             error = result1.error
         )
-    } else if (result2 is ApiResponse.Error<T2, E>) {
+    } else if (result2 is ApiResponse.Error<T2>) {
         return ApiResponse.Error(
             code = result2.code,
             message = result2.message,
             error = result2.error
         )
-    } else if (result3 is ApiResponse.Error<T3, E>) {
+    } else if (result3 is ApiResponse.Error<T3>) {
         return ApiResponse.Error(
             code = result3.code,
             message = result3.message,
             error = result3.error
         )
-    } else if (result4 is ApiResponse.Error<T4, E>) {
+    } else if (result4 is ApiResponse.Error<T4>) {
         return ApiResponse.Error(
             code = result4.code,
             message = result4.message,
