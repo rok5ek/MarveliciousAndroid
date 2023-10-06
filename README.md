@@ -11,10 +11,10 @@ An open source Android mobile app filled with Marvel characters.
 
 ## How to run the app for the first time?
 
-    1. Sync Gradle
-    2. Add API keys into `local.properties` file (this file exists in the root of this project)
+    1. Add API keys into `local.properties` file (this file exists in the root of this project)
         1. MARVEL_API_PUBLIC_KEY=xxx
         2. MARVEL_API_PRIVATE_KEY=xxx
+    2. Sync Gradle
     3. Click play
 
 ## API
