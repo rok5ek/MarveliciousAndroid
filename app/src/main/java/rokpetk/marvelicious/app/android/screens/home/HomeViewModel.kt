@@ -60,11 +60,9 @@ class HomeViewModel @Inject constructor(
                 // and the user typed “abc.” Then we’re no longer interested in the outcome of “ab.”
                 // flatMapLatest only returns the results of the most recent search query and ignores the rest.
                 .flatMapLatest {
-                    Log.d("TAG", "app home getHeroes query:$it")
                     _state.update { it.copy(isLoading = true) }
                     getHeroes.execute(params = GetHeroes.Params(nameStartsWith = it))
                 }.collect { response ->
-                    Log.d("TAG", "app home getHeroes response:$response")
                     onGetHeroResponse(response = response)
                 }
         }

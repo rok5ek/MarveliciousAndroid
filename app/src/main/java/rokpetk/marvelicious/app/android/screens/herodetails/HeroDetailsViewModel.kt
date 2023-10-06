@@ -30,12 +30,10 @@ class HeroDetailsViewModel @Inject constructor(
 
     init {
         savedStateHandle.get<String>(Screen.HeroDetails.arg)?.let { id ->
-            Log.d("TAG", "app heroDetails id:$id")
             viewModelScope.launch {
                 _state.update { it.copy(isLoading = true) }
                 getHeroDetails.execute(params = GetHeroDetails.Params(id = id))
                     .collect { response ->
-                        Log.d("TAG", "app heroDetails response:$response")
                         when (response) {
                             is ApiResponse.Success -> {
                                 _state.update {
