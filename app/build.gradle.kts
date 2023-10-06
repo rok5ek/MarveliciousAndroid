@@ -76,6 +76,10 @@ dependencies {
     implementation(Dependencies.composeMaterial)
 
     testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.okhttpMockServer)
+    testImplementation(Dependencies.retrofit)
+    testImplementation(Dependencies.retrofitKotlinSerializer)
+    implementation(Dependencies.kotlinSerializer)
     androidTestImplementation(Dependencies.jUnitAndroid)
     androidTestImplementation(Dependencies.espresso)
 }

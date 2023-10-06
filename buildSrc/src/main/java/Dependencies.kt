@@ -20,9 +20,6 @@ object Versions {
     val retrofitKotlinSerializer = "1.0.0"
     val kotlinSerializer = "1.6.0"
 
-    // retrofit response modeling
-    val sandwich = "1.3.9"
-
     // retrofit http client
     val okhttp = "4.11.0"
 }
@@ -55,8 +52,8 @@ object Dependencies {
         "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.retrofitKotlinSerializer}"
     val kotlinSerializer =
         "org.jetbrains.kotlinx:kotlinx-serialization-json:${Versions.kotlinSerializer}"
-    val sandwich = "com.github.skydoves:sandwich:${Versions.sandwich}"
-    val sandwichSerialization = "com.github.skydoves:sandwich-serialization:${Versions.sandwich}"
+
+    val okhttpMockServer = "com.squareup.okhttp3:mockwebserver:${Versions.okhttp}"
 
     val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
     val okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
