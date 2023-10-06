@@ -5,6 +5,7 @@ import rokpetk.marvelicious.app.domain.models.EventModel
 import rokpetk.marvelicious.app.domain.models.SeriesModel
 
 data class HeroDetailsState(
+    val isLoading: Boolean = false,
     val name: String = "",
     val image: String = "",
     val comics: List<ComicModel> = listOf(),

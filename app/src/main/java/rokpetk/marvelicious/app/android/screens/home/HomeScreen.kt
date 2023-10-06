@@ -1,12 +1,15 @@
 package rokpetk.marvelicious.app.android.screens.home
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -23,6 +26,7 @@ import rokpetk.marvelicious.app.android.R
 import rokpetk.marvelicious.app.android.extensions.collectInLaunchedEffectWithLifecycle
 import rokpetk.marvelicious.app.android.navigation.Navigator
 import rokpetk.marvelicious.app.android.screens.home.components.HomeItemView
+import rokpetk.marvelicious.app.android.ui.components.CircularProgressView
 import rokpetk.marvelicious.app.android.ui.theme.Dimens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,33 +46,46 @@ fun HomeScreen(
     }
 
     Scaffold() { paddingValues ->
-        Column(
-            modifier = Modifier.padding(
-                paddingValues = paddingValues
-            )
+        Box(
+            modifier = Modifier
+                .padding(paddingValues = paddingValues)
+                .fillMaxSize()
         ) {
-            OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(all = Dimens.Padding.p12),
-                value = state.searchQuery,
-                onValueChange = { viewModel.onSearchQuery(it) },
-                label = { Text(stringResource(id = R.string.home_search_label)) }
-            )
-            LazyColumn(
-                modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(vertical = Dimens.Padding.p20)
+            CircularProgressView(isVisible = state.isLoading)
+            Column(
+                modifier = Modifier.padding(
+                    paddingValues = paddingValues
+                )
             ) {
-                items(
-                    items = state.items,
-                    itemContent = { item ->
-                        HomeItemView(
-                            item = item,
-                            onClick = {
-                                Navigator.openHeroDetails(
-                                    navController = navController,
-                                    heroId = item.id.toString()
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(all = Dimens.Padding.p20),
+                    value = state.searchQuery,
+                    onValueChange = { viewModel.onSearchQuery(it) },
+                    label = { Text(stringResource(id = R.string.home_search_label)) }
+                )
+
+                LazyVerticalGrid(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentPadding = PaddingValues(Dimens.Padding.p20),
+                    horizontalArrangement = Arrangement.spacedBy(Dimens.Padding.p12),
+                    verticalArrangement = Arrangement.spacedBy(Dimens.Padding.p12),
+                    columns = GridCells.Fixed(2),
+                    content = {
+                        items(
+                            count = state.items.size,
+                            itemContent = { index ->
+                                HomeItemView(
+                                    item = state.items[index],
+                                    onClick = {
+                                        Navigator.openHeroDetails(
+                                            navController = navController,
+                                            heroId = state.items[index].id.toString()
+                                        )
+                                    }
                                 )
+
                             }
                         )
                     }

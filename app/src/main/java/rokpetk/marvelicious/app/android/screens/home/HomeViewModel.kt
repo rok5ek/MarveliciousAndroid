@@ -62,6 +62,7 @@ class HomeViewModel @Inject constructor(
                 // flatMapLatest only returns the results of the most recent search query and ignores the rest.
                 .flatMapLatest {
                     Log.d("TAG", "app home getHeroes query:$it")
+                    _state.update { it.copy(isLoading = true) }
                     getHeroes.execute(params = GetHeroes.Params(nameStartsWith = it))
                 }.collect { response ->
                     Log.d("TAG", "app home getHeroes response:$response")
@@ -73,14 +74,16 @@ class HomeViewModel @Inject constructor(
     private suspend fun onGetHeroResponse(response: ApiResponse<List<HeroModel>, ErrorResponse>) {
         when (response) {
             is ApiResponse.Success -> {
-                _state.update { it.copy(items = response.result) }
+                _state.update { it.copy(isLoading = false, items = response.result) }
             }
 
             is ApiResponse.Error -> {
+                _state.update { it.copy(isLoading = false) }
                 response.error?.let { _event.emit(HomeEvent.ShowError(message = it.message)) }
             }
 
             is ApiResponse.Exception -> {
+                _state.update { it.copy(isLoading = false) }
                 response.error.message?.let { _event.emit(HomeEvent.ShowError(message = it)) }
             }
         }

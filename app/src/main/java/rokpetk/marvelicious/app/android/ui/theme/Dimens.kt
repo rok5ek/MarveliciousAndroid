@@ -21,6 +21,8 @@ object Dimens {
         val p24 = 24.dp
     }
 
-    val heroImageSize = 64.dp
-    val mediaItemSize = 128.dp
+    val heroImageSize = 128.dp
+    val mediaItemSize = 72.dp
+    val circularProgressSize = 64.dp
+    val heroDetailsHeight = 200.dp
 }

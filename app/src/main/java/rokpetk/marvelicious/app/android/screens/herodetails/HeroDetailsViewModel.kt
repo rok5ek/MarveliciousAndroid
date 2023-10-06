@@ -32,6 +32,7 @@ class HeroDetailsViewModel @Inject constructor(
         savedStateHandle.get<String>(Screen.HeroDetails.arg)?.let { id ->
             Log.d("TAG", "app heroDetails id:$id")
             viewModelScope.launch {
+                _state.update { it.copy(isLoading = true) }
                 getHeroDetails.execute(params = GetHeroDetails.Params(id = id))
                     .collect { response ->
                         Log.d("TAG", "app heroDetails response:$response")
@@ -39,6 +40,7 @@ class HeroDetailsViewModel @Inject constructor(
                             is ApiResponse.Success -> {
                                 _state.update {
                                     it.copy(
+                                        isLoading = false,
                                         name = response.result.name,
                                         image = response.result.image,
                                         comics = response.result.comics,
@@ -49,12 +51,14 @@ class HeroDetailsViewModel @Inject constructor(
                             }
 
                             is ApiResponse.Error -> {
+                                _state.update { it.copy(isLoading = false) }
                                 response.error?.let {
                                     _event.emit(HeroDetailsEvent.ShowError(message = it.message))
                                 }
                             }
 
                             is ApiResponse.Exception -> {
+                                _state.update { it.copy(isLoading = false) }
                                 response.error.message?.let {
                                     _event.emit(
                                         HeroDetailsEvent.ShowError(
